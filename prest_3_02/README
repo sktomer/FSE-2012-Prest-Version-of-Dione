@@ -1,0 +1,139 @@
+
+PREST (Pedigree RElationship Statistical Test).  
+A program that checks pedigrees for errors.
+Copyright (C) 2000  Lei Sun, Kenneth Wilder, Mary Sara McPeek
+Homepage: http://galton.uchicago.edu/~mcpeek/software/prest
+Release 1.0.  July 22, 2000
+        1.01  July 25, 2000
+        2.0   August 10, 2000
+        2.01  September 05, 2000
+        2.02  October 30, 2000
+        2.03  November 28, 2000
+        3.0   January 10, 2001
+
+===========================================================
+
+License
+
+This program is free software; you can redistribute it and/or 
+modify it under the terms of the GNU General Public License 
+as published by the Free Software Foundation; either version 2 
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY of FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program (see file gpl.txt); if not, write to the 
+Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+Boston, MA 02111-1307, USA.
+
+We request that use of this software be cited in publications as 
+M.S. McPeek and L. Sun (2000) "Statistical Tests for Detection of 
+Misspecified Relationships by Use of Genome-Screen Data" 
+American Journal of Human Genetics 66:1076-1094.
+
+To contact the author:
+
+Lei Sun
+Department of Statistics
+The University of Chicago
+5734 S. University Ave.
+Chicago, IL 60637
+email: sun@galton.uchicago.edu
+
+===========================================================
+
+Installation instructions:
+
+1.  Download the PREST package.
+    This package includes two programs.  One is 'prest.c' 
+    (Pedigree RElationship Statistical Test) and the other one 
+    is 'altertest.c' (ALTERnative TEST).  The two programs can 
+    be run independently.  The PREST distribution now also includes 
+    an R program 'prest.r' written by Daniel E. Weeks that draws 
+    out the relationship triangles. 
+    
+2.  Read the files 'Overview', 'Input', 'Output' and 'Tips' carefully
+    to understand the purpose of this program and how it works.
+  
+3.  Edit the 'Makefile' as necessary according to the instructions in
+    the 'Makefile'.  You should only need to make sure that the correct
+    compiler and compiler options for your machine are chosen.
+
+4.  Type 'make'.  This will build an executable program 'prest'.
+    Type 'make altertest'.  This will build an executable 
+    program 'altertest'.
+
+5.  To run the executable program 'prest':
+
+    First, prepare the input files, e.g., "ex_pedigrees" 
+    and "ex_chromfiles" (see the files 'Example' and 
+    'Input' for more details).
+
+    Then, 
+
+      I.  if use option 1 (perform fast EIBD, AIBS and IBS 
+          test only), type
+
+            prest ex_pedigrees ex_chromfiles 1
+
+      II. if use option 2 (also perform MLRT test; this takes
+          substantially more time), type
+
+            prest ex_pedigrees ex_chromfiles 2
+
+6.  To run the executable program 'altertest':
+
+    First, prepare the input files, e.g., "ex_altertest_input" 
+    and "ex_chromfiles" (see the files 'Example' and 'Input'
+    for more details).
+
+    Then, type
+
+    altertest ex_altertest_input ex_chromfiles
+
+7.  You can test the executable program 'prest' by running it 
+    with the sample input files 'ex_pedigrees' and 'ex_chromfiles'.   
+    You can then compare your output in the files 'prest_out1', 
+    'prest_out2' and 'prest_out3' with the correct output in the 
+    sample output files 'ex_out1_option1', 'ex_out2_option1' and
+    'ex_out3_option1' (if option 1 were used) or 'ex_out1_option2',
+    'ex_out2_option2' and 'ex_out3_option2' (if option 2 were used).
+
+8.  You can test the executable program 'altertest' by running it 
+    with the sample input files 'ex_altertest_input and 'ex_chromfiles'.   
+    You can then compare your output in the file 'altertest_out' with 
+    the correct output in the sample output file 'ex_altertest_out'.
+
+9.  The programs stop if any errors are detected in the format of the 
+    input files.  Check the output file 'prest_errors' (if you run 'prest') 
+    or 'altertest_errors' (if you run 'altertest') for all the errors.
+
+10. Read the file 'About Weeks's R Program' carefully to understand 
+    the purpose of the R program 'prest.r'.  This program runs fine 
+    in Splus as well as in R.  To run the program in R or in Splus:
+
+	> source("prest.r")
+	> postscript(paper="letter",horizontal=F)
+	> prest("prest_out2")
+	> dev.off()
+
+    The above sequence of commands will read in the 'prest_out2' file 
+    and draw out one relationship triangle for each line in the file.  
+    The resulting plots will be written to a Postscript file 
+    (under R, the default name of this file is "Rplots.ps").
+
+
+
+
+
+
+
+
+
+
+
+

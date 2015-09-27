@@ -1,0 +1,222 @@
+Output 
+
+Part I (PREST)
+==============
+
+1.  "prest_errors" file 
+
+    This file contains all error messages if there are any.  It will
+    include errors in the format of the pedigree file, the format of
+    the marker files, the format of genotype data files and Mendelian
+    errors.  The program will stop if errors are detected, except that
+    it will continue to run in the presence of Mendelian errors.  The
+    information on Mendelian errors in the "prest_errors" file can be
+    viewed as complementary to the hypothesis test results in
+    "prest_out2", and both sources of information can be used to detect
+    likely pedigree errors. (In the current implementation of PREST, the
+    presence of Mendelian errors in a pedigree is not directly taken into
+    account in the hypothesis tests for particular relative pairs from
+    that pedigree.  Furthermore, not all Mendelian errors may be
+    detected, because only father-mother-offspring trios are examined.)
+
+2.  "prest_out1" file 
+
+    This file contains some general information, including the number
+    of chromosomes, the number of markers, the number of pedigrees,
+    the total number of individuals, the number of genotyped relative
+    pairs found in each of the 10 relationship categories analyzed by
+    PREST, and the number of pairs for which PREST would perform the
+    MLLR test.  (The MLLR test will actually be performed only if
+    option 2 is chosen.)  We also calculate the sample averaged
+    observed EIBD, AIBS and IBS statistics and sample averaged null
+    means and null variances for each relationship type considered
+    (but note that the null mean of EIBD depends only on the null
+    relationship, not on the data, so for EIBD we give the null mean
+    in place of the sample averaged null mean.  Also note that the
+    EIBD test does not apply to unrelated and parent-offspring
+    relationships and the IBS test does not apply to unrelated pairs).  
+    Assuming that the number of pairs of each relationship type is
+    large, assuming that there are not many misclassified relative
+    pairs in the data set and assuming that all the pairs are
+    typed on roughly the same markers  (because which markers are
+    typed affects the null means of the AIBS and IBS statistics and
+    affects the null variances of the EIBD, AIBS and IBS statistics),
+    then the sample averaged observed statistics for each relationship
+    type should not be significantly different from what is expected.
+    If they are significantly different, it may indicate that the allele
+    frequencies are not accurately estimated, or that the assumptions
+    of population homogeneity and Hardy-Weinberg equilibrium are not
+    appropriate.  It could also indicate a problem with the way the
+    data are coded (see item #7 in 'Tips' file).
+
+3.  "prest_out2" file 
+
+    This file contains the results for the EIBD, AIBS and IBS tests, 
+    when option 1 is used, and these results plus those from the MLLR
+    test, when option 2 is used, for all of the typed relative pairs
+    considered (full-sib, half-sib, grandparent-grandchild, avuncular,
+    first-cousin, unrelated, half-avuncular, half-first-cousin, 
+    half-sib-plus-first-cousin and parent-offspring).  If a relative
+    pair has very small p-values for some or all of the tests, it is
+    an indication of a possible misspecified relationship in the
+    pedigree.  The estimate of p = (p0, p1, p2), the probability of
+    sharing zero, one, or two alleles IBD by the pair, can be used to
+    propose some likely relationships for the pair.  The proposed
+    relationships can then be tested by ALTERTEST for fit to the data.
+    For unrelated pairs, the EIBD and AIBS tests are not applicable.  
+    For parent-offspring pairs, the EIBD test is not applicable.
+    Below are sample "prest_out2" output files for
+    the two options with which the program can be run.
+
+    I.  Sample option 1 output: 
+
+         4  1  3  1 273 .98 .18 .46 .35 .049 .120 .030 
+	 4  2  5  3 161 .46 .56 .49 .06 .866 .746 .397 
+         4  5  8  6 201 .00 .93 .02 .04   NA   NA .767 
+	(1)(2)(3)(4)(5) (6) (7) (8) (9) (10) (11) (12) 
+
+        (1) pedigree id 
+        (2) individual 1 id 
+        (3) individual 2 id 
+        (4) relationship between individual 1 and individual 2
+            indicated by the pedigree, used as the null hypothesis
+            ( 1 = full-sib,  2 = half-sib,     3 = grandparent-grandchild,
+              4 = avuncular, 5 = first-cousin, 6 = unrelated) 
+              7 = half-avuncular, 8 = half-first-cousin,
+              9 = half-sib-plus-first-cousin.
+             10 = parent-offspring )
+        (5) number of markers typed in both individuals 
+        (6) observed EIBD statistic of the pair 
+            (The null mean of each relationship type is 
+            1.0 (full-sib),  0.5 (half-sib),     0.5(grandparent-grandchild),
+            0.5 (avuncular), 0.25(first-cousin), 0.0(unrelated),
+            0.25(half-avuncular), 0.125(half-first-cousin),
+            0.75(half-sib-plus-first-cousin), 
+            1.0(parent-offspring) )  
+        (7) estimated p0 (the prob. of sharing 0 alleles IBD) 
+        (8) estimated p1 (the prob. of sharing 1 allele IBD) 
+        (9) estimated p2 (the prob. of sharing 2 alleles IBD) 
+        (10) two-sided p-value for the EIBD test, 
+             using normal approximation
+             (NA for unrelated and parent-offspring pairs)
+        (11) two-sided p-value for the AIBS test, 
+             using normal approximation
+             (NA for unrelated pairs)
+        (12) two-sided p-value for the IBS test, 
+             using normal approximation 
+
+    II.  Sample option 2 output: 
+
+         4  1  3  1 273 .98 .18 .46 .35 .049 .120 .030 .044 .114 .023 .091
+	 4  2  5  3 161 .46 .56 .49 .06 .866 .746 .397   NA   NA   NA   NA
+         4  5  8  6 201 .00 .93 .02 .04   NA   NA .767   NA   NA   NA   NA
+	(1)(2)(3)(4)(5) (6) (7) (8) (9) (10) (11) (12) (13) (14) (15) (16) 
+ 
+        (1)-(12) same as in option 1 
+
+         **  If the p-values obtained by use of EIBD and AIBS (or IBS
+             for unrelated pairs) are greater than 0.2, output is NA for
+             (13)-(16), otherwise
+
+        (13) empirical p-value for the EIBD test, 
+             obtained through simulation 
+             (NA for unrelated and parent-offspring pairs)
+        (14) empirical p-value for the AIBS test, 
+             obtained through simulation 
+             (NA for unrelated pairs)
+        (15) empirical p-value for the IBS test, 
+             obtained through simulation 
+        (16) empirical p-value for the MLLR test, 
+             obtained through simulation 
+
+4.  "prest_out3" file 
+     
+    This file contains the information for the pairs that are not
+    parent-offspring but have the estimate of p1 > 0.75,
+    and it also contains the information for the pairs that are
+    parent-offspring but have the estimate of p1 < 0.9.
+    As described in 'Overview', the EIBD, AIBS, IBS tests have low
+    power to test parent-offspring relationship either as null or
+    alternative hypothesis, while the estimate of p1 can successfully
+    distinguish it from the other relationships we consider, if
+    genome-screen data are available.  Thus PREST uses the estimate of
+    p1 to identify possible misspecified parent-offspring relative
+    pairs and lists such pairs in this separate file.  If option 1 is
+    used, this file provides valuable information on the pairs that
+    the EIBD, AIBS and IBS tests have low power to detect.  If option
+    2 us used, the MLLR test will be applied to the pairs listed in
+    the file.  Below is a sample "prest_out3" output file: 
+
+       227  14  20  10  308  0.000 1.000 0.000  0.855 0.136 0.008
+        56   1  4    3  299  0.500 0.500 0.000  0.000 0.978 0.021
+       (1) (2) (3) (4)  (5)    (6)   (7)   (8)    (9)  (10)  (11)
+
+        (1)-(5) same as in "prest_out2"
+        (6)-(7) null values of p0, p1, p2, respectively, for the
+                relationship specified by column (4)
+       (8)-(11) estimates of p0, p1, p2, respectively, of the pair
+                (Note that the estimation of the pair is independent
+		of the null relationship.)
+
+
+Part II (ALTERTEST)
+===================
+
+1.  "altertest_errors" file 
+
+    This file contains all error messages if there are any.  It will
+    include errors in the format of the marker files or in the format
+    of genotype data files. The program stops if any errors are
+    detected.
+
+2.  "altertest_out" file 
+
+    This file contains the results of the EIBD, AIBS, IBS and MLLR
+    tests for each pair listed in "altertest_input" file.  If the
+    p-values are small, it may indicate that the relationship given as
+    the null hypothesis is not the correct one.  If the p-values are
+    not small, this indicates that the relationship given as the null
+    hypothesis is consistent with the data (but note that there may be
+    multiple relationships consistent with the data).  When the null
+    hypothesis is unrelated relationship, the EIBD and AIBS tests are
+    not applicable.  When the null hypothesis is parent-offspring or 
+    MZ twin relationship, the EIBD test is not applicable. Below is a
+    sample "altertest_out" output file:
+
+        4   1   3   2 273 .55 .18 .46 .35 .61362 .38130 .91652 .49288
+        4   1   3   6 273 .00 .18 .46 .35     NA     NA .00000 .00000
+        4   2   5   7 161 .38 .56 .49 .06 .04678 .00230 .09464 .00014
+        4   5   8   5 201 .28 .93 .02 .04 .48596 .79852 .26478 .95456
+      (1) (2) (3) (4) (5) (6) (7) (8) (9)   (10)   (11)   (12)   (13)  
+
+     (1) family ID
+     (2) individual 1 ID
+     (3) individual 2 ID
+     (4) relationship used as the null hypothesis for the pair
+         ( 1 = full-sib,  2 = half-sib,     3 = grandparent-grandchild,
+           4 = avuncular, 5 = first-cousin, 6 = unrelated) 
+           7 = half-avuncular,    8 = half-first-cousin,
+           9 = half-sib-plus-first-cousin.
+          10 = parent-offspring, 11 = MZ twins )
+     (5) number of markers typed in both individuals 
+     (6) observed EIBD statistic of the pair with the null
+         relationship specified in column (4)
+         (The null mean of each relationship type is
+          1.0 (full-sib),  0.5 (half-sib),     0.5(grandparent-grandchild),
+          0.5 (avuncular), 0.25(first-cousin), 0.0(unrelated),
+          0.25(half-avuncular), 0.125(half-first-cousin),
+          0.75(half-sib-plus-first-cousin), 
+          1.0(parent-offspring), 2.0 (MZ twins) )
+     (7) estimated p0 (the prob. of sharing 0 alleles IBD) 
+     (8) estimated p1 (the prob. of sharing 1 allele IBD) 
+     (9) estimated p2 (the prob. of sharing 2 alleles IBD) 
+    (10) empirical p-value for the EIBD test, 
+         obtained through simulation 
+         (NA for unrelated, parent-offspring and MZ twin pairs)
+    (11) empirical p-value for the AIBS test, 
+         obtained through simulation 
+         (NA for unrelated pairs)
+    (12) empirical p-value for the IBS test, 
+         obtained through simulation 
+    (13) empirical p-value for the MLLR test, 
+         obtained through simulation 

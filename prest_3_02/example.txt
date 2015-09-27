@@ -1,0 +1,50 @@
+
+Example 
+
+(You can download all the following sample files,
+ run the sample input files and compare your
+ output files with the sample output files.)
+
+Part I (PREST)
+==============
+
+1. Prepare a pedigree file, e.g., "ex_pedigrees" 
+
+2. Prepare a chromosomes file, e.g., "ex_chromfiles"
+
+3. Prepare all of the marker and genodata files mentioned in
+   "ex_chromfiles", e.g., "ex_chr01.idx" and "ex_chr01.ped"
+
+4. Build the program "prest" according to the instructions in
+   the README and Makefile.
+
+5. Run the program: 
+
+    I.If using option 1 (perform fast EIBD, AIBS and IBS test only) 
+
+        prest ex_pedigrees ex_chromfiles 1 
+
+    II.If using option 2 (also perform MLRT test; this takes
+                          substantially more time) 
+
+        prest ex_pedigrees ex_chromfiles 2 
+
+
+Part II (ALTERTEST)
+===================
+
+1. Prepare an input file, e.g., "ex_altertest_input" 
+
+2. Prepare a chromosomes file (same as in Part I), 
+   e.g., "ex_chromfiles" 
+
+3. Prepare all of the marker and genodata files mentioned in
+   "ex_chromfiles" (same as in Part I), 
+   e.g., "ex_chr01.idx" and "ex_chr01.ped"
+
+4. Build the program "altertest" according to the instructions in
+   the README and Makefile.
+
+5. Run the program: 
+
+    altertest ex_altertest_input ex_chromfiles  

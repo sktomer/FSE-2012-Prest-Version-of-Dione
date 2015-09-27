@@ -1,0 +1,142 @@
+
+Input 
+
+Part I (PREST)
+==============
+
+1.  "pedigrees" file 
+
+    This file contains a set of pedigrees that are to be checked for
+    pedigree errors.  There are no limitations on the number of
+    pedigrees or the number of individuals in a pedigree.  Below is a
+    sample pedigree file:
+
+       1   1   7   6   1   2 
+       1   2   7   6   2   2
+       1   3   7   6   1   2
+       1   7   0   0   1   1
+       1   6   0   0   2   0
+       4   1   8   9   2   2
+       4   2   8   9   1   1
+       4   3   8   9   2   1
+       4   8   0   0   1   0
+       4   9   5   6   2   1
+       4   5   0   0   1   0
+       4   6   0   0   2   0
+     (1) (2) (3) (4) (5) (6)
+  
+     (1) family ID 
+     (2) individual ID 
+     (3) father's ID (0=unknown)
+     (4) mother's ID (0=unknown)
+     (5) sex (1=male, 2=female) 
+     (6) affection status (0=unknown, 1=unaffected, 2=affected) 
+ 
+    All codes should be non-negative integers.  Column (6) is not used
+    by PREST, so the entries for this column could just as well be
+    all zeroes.
+ 
+2.  "chromfiles" file 
+
+    This file contains the names of marker and genotype data files.
+    Each line contains the name of a marker file and a genotype data
+    file for one chromosome.  You may enter files for as many
+    chromosomes as you wish, but DO NOT ENTER the sex chromosome
+    (chromosome 23).  Below is a sample.
+ 
+      chr05.idx chr05.ped 
+      chr07.idx chr07.ped 
+      chr08.idx chr08.ped 
+      chr11.idx chr11.ped 
+
+    The format of the marker files is similar to that used by
+    GENEHUNTER.  Below is a sample marker file, named "chr05.idx"
+
+      4 << no.  of loci 
+      3 7 # D05S1685 
+       0.011 0.003 0.517 0.285 0.006 0.159 0.019 << allele frequencies
+      3 9 # D05S689 
+       0.012 0.037 0.076 0.151 0.311 0.252 0.124 0.034 0.003 
+      3 6 # D05S685 
+       0.014 0.005 0.101 0.297 0.131 0.452 
+      3 7 # D05S445 
+       0.007 0.119 0.038 0.163 0.541 0.112 0.020 
+      0.125 0.051 0.221 << recombination fraction values 
+
+    All comments are optional and are ignored by the program.  The
+    first line contains the number of markers typed on that
+    chromosome.  This is followed by two lines for each marker.  
+    The first line for each marker contains the number "3"
+    (obligatory, as in GENEHUNTER) followed by the number of alleles.
+    The second line contains the allele frequencies, which must 
+    sum to 1.  At the end of the file there is an additional line that
+    has the marker spacings which are in recombination fraction (not
+    in Morgans or centi-Morgans).  Note that if there are n markers, 
+    there are only n-1 marker spacings.
+
+    The format of the genotype data files is also similar to that used
+    by GENEHUNTER.  Below is a sample genotype data file, named
+    "chr05.ped"
+
+       1   1   7   6   1   2   5 5  4 4  3 4  2 5 
+       1   2   7   6   2   2   5 5  0 0  0 0  5 6
+       1   3   7   6   1   2   5 5  0 0  3 3  2 5
+       1   7   0   0   1   1   0 0  0 0  3 3  5 5
+       1   6   0   0   2   0   5 7  0 0  0 0  2 6
+       4   1   8   9   2   2   5 7  4 5  0 0  7 8
+       4   2   8   9   1   1   5 7  0 0  6 6  5 7
+       4   3   8   9   2   1   5 5  0 0  6 6  7 8
+       4   8   0   0   1   0   5 5  0 0  3 6  7 7
+       4   9   5   6   2   1   5 7  0 0  0 0  5 8
+       4   5   0   0   1   0   0 0  0 0  0 0  0 0
+       4   6   0   0   2   0   0 0  0 0  0 0  0 0 
+     (1) (2) (3) (4) (5) (6)  (g----------------)
+  
+     (1)-(6) as in the pedigree file
+     (g) marker genotype data (0=unknown) 
+
+
+Part II (ALTERTEST)
+==================
+
+1.  "altertest_input" file
+
+    This file contains a list of problematic relative pairs along with
+    their user-specified null hypothesis that may be different from
+    what the pedigree says.  There are no limitations on the number
+    of pairs.  Each pair can be listed with more than one suspected
+    relationship, but each relationship has its own line.  
+    Below is a sample input file:
+
+       4   1   3   2
+       4   1   3   6
+       4   2   5   7
+       4   5   8   5
+     (1) (2) (3) (4) 
+  
+     (1) family ID 
+     (2) individual 1 ID 
+     (3) individual 2 ID 
+     (4) relationship to be used as the null hypothesis for the pair
+         ( 1 = full-sib,  2 = half-sib,     3 = grandparent-grandchild,
+           4 = avuncular, 5 = first-cousin, 6 = unrelated,
+           7 = half-avuncular,     8 = half-first-cousin,
+           9 = half-sib-plus-first-cousin. 
+          10 = parent-offspring,  11 = MZ twins )
+         (A pair is called half-sib-plus- first-cousin if they have 
+          the same mother and different fathers who are brothers, 
+          or the same father and different mothers who are sisters.)
+    
+    All codes should be non-negative integers.  The last column is
+    crucial.  It is the user-specified null hypothesis, to be used 
+    in the calculation of the EIBD, AIBS, IBS and MLLR test statistics
+    and in the simulation of the genotype data for the pair to assess
+    significance.  In the current implementation of ALTERTEST, only 
+    the 11 null relationship types listed above are allowed.   
+
+2.  "chromfiles" file 
+
+    This file, and all the marker files and genotype data files
+    whose names appear within it, are EXACTLY the same as in 
+    Part I (PREST).
+

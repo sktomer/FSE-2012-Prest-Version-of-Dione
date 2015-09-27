@@ -1,0 +1,172 @@
+ 
+Overview 
+
+Part I (PREST)
+==============
+
+  PREST is a program, written in C, for detection of pedigree
+  errors ("PREST" stands for Pedigree RElationship Statistical Test
+  and it is also a Latin word meaning "ready").  The presence of 
+  pedigree errors in a data set may result in either reduced power 
+  or false positive evidence for linkage, so detection of such errors 
+  is useful prior to linkage analysis.  This program performs
+  statistical tests using genome-screen data to determine whether the
+  pattern of allele sharing by each pair of relatives is consistent with
+  the relationship indicated by the pedigree.  PREST computes the
+  EIBD, AIBS, IBS and MLLR statistics developed by McPeek and Sun (2000)
+  and performs the corresponding hypothesis tests for relationship
+  misspecification.  All relative pairs of the following 10 types are
+  checked: full-sib, half-sib, grandparent-grandchild, avuncular,
+  first-cousin, unrelated, half-avuncular, half-first-cousin, 
+  half-sib-plus-first-cousin and parent-offspring.  (A pair is called 
+  half-sib-plus-first-cousin if they have the same mother and different 
+  fathers and the two fathers are full-sib, or the same father and 
+  different mothers who are sisters.)  Furthermore, MZ twins can be 
+  checked using the companion program ALTERTEST.  To make the
+  likelihood calculation meaningful for parent-offspring pairs 
+  and MZ twins in the presence of genotyping error, we incorporate
+  genotyping error in the model in the two cases.  The program currently 
+  checks unrelated pairs only within a given pedigree; it does not
+  check that individuals in different pedigrees are unrelated because
+  of the enormous number of hypothesis tests that would be involved.  
+  Note that the program could be forced to check that individuals in 
+  different pedigrees are unrelated by combining pedigrees into one 
+  large pedigree in the input.  In the current implementation, data on 
+  sex chromosomes are not used.
+
+  For each pair, PREST also estimates p = (p0, p1, p2), the probability 
+  of sharing zero, one or two alleles IBD by the pair as proposed in 
+  McPeek and Sun (2000).  Note that the estimation does not depend on
+  the null hypothesis.  The estimate can be useful for suggesting
+  plausible relationships for problematic pairs and it can be
+  particularly helpful for identifying parent-offspring pairs and 
+  MZ twins.
+  
+  The MLLR test has higher power than the tests based on the EIBD,
+  AIBS and IBS statistics.  However, the EIBD, AIBS and IBS tests 
+  can be quickly performed because significance is assessed using a
+  normal approximation, whereas the MLLR test requires simulation for
+  each pair to assess significance.  To achieve reliable empirical
+  p-values, the number of replicates in the simulation needs to be
+  large.  For each relative pair, the MLLR test algorithm using
+  100,000 simulated realizations takes approximately 5 minutes on a
+  Sun Ultra-2.  In contrast, for each relative pair, the EIBD, AIBS
+  and IBS tests using the normal approximation take less than 80
+  milliseconds on the same machine.  In our simulation studies, the
+  power of the EIBD test is generally close to that of the MLRT.  The
+  power of the AIBS test is higher than that of the IBS test in all
+  cases considered.  Parent-offspring relationship is a special case
+  for the EIBD, AIBS and IBS tests.  Our simulation shows that if the
+  null hypothesis is the parent-offspring relationship, while the true
+  relationship has the same or close kinship coefficient,
+  e.g. full-sib relationship, both the AIBS and IBS tests (the EIBD
+  test does not apply to relationships such as parent-offspring,
+  unrelated and MZ twins) have low power.  If the null hypothesis is
+  the relationship as described above, while the true relationship is
+  parent-offspring, all the EIBD, AIBS and IBS tests have low power.  
+  However our simulation (genome-screen data) also shows that the
+  estimate of p = (p0, p1, p2) (independent of the null hypothesis) 
+  can successfully distinguish parent-offspring relationship from the 
+  other 10 relationships as mentioned before.  Therefore, PREST gives
+  users TWO OPTIONS.
+
+    1.  Perform the fast EIBD, AIBS and IBS tests only, using the
+        normal approximation to assess significance for each test.
+	List the pairs that are not parent-offspring relationship 
+	but have the estimates of p1 > 0.75.
+
+    2.  Use a two-stage screening procedure.  For non-parent-offspring
+        pairs and non-unrelated pairs, do preliminary screening with 
+        the EIBD and AIBS tests and with the results of the estimation 
+        of p = (p0, p1, p2), then apply the MLLR test to only those 
+        pairs for which the p-value < .2 for at least one of the EIBD 
+	and AIBS tests (as proposed by McPeek and Sun 2000) or for
+        which the estimates of p1 > 0.75.  For unrelated pairs, apply
+        the MLLR test if the p-value < .2 for the IBS test (the EIBD
+        and AIBS tests are not applicable to unrelated pairs).  For 
+	parent-offspring pairs, apply the MLLR test only if the
+        estimate of p1 < 0.9.  For the MLLR test, the alternative 
+	set A include 11 relationships.  They are full-sib,
+        half-sib, grandparent-grandchild, avuncular, first-cousin, 
+	unrelated, half-avuncular, half-first-cousin, 
+	half-sib-plus-first-cousin, parent-offspring and MZ twins.
+        (excluding the null relationship).  
+
+  If option 1 is chosen, PREST first identifies all relative pairs
+  considered (full-sib, half-sib, grandparent-grandchild, avuncular,
+  first-cousin, unrelated, half-avuncular, half-first-cousin, 
+  half-sib-plus-first-cousin and parent-offspring) among typed 
+  individuals of each pedigree.  For each pair, PREST calculates 
+  the EIBD, AIBS and IBS statistics, the null means and the null
+  variances.  Then, PREST uses the normal approximation to assess
+  significance for each test.  For unrelated pairs, the EIBD and AIBS
+  tests are not applicable, so only the IBS test is applied.  For
+  parent-offspring, the EIBD test are not applicable, so only the AIBS
+  and IBS tests are applied.   For each pair, PREST further estimates
+  p = (p0, p1, p2), the probability of sharing zero, one or two
+  alleles IBD by the pair.  Finally PREST identifies the pairs that
+  are not parent-offspring relationship but have the estimates of 
+  p1 > 0.75, and it also identifies the pairs that are
+  parent-offspring relationship but have the estimates of p1 < 0.9. 
+
+  If option 2 is chosen, PREST will do everything that is done in
+  option 1, then proceed to apply the MLRT to the subset of relative
+  pairs selected by the initial screening as described above.
+  100,000 replicates (this default value can be changed by the user) 
+  are used to calculate the empirical p-value for the MLLR test.  
+  PREST also calculates the empirical p-values for the EIBD, AIBS and
+  IBS tests so that they can be compared with the p-values obtained 
+  using the normal approximation.
+
+
+Part II (ALTERTEST)
+===================
+
+  ALTERTEST (ALTERnative TEST) is a program that performs the 
+  EIBD, AIBS, IBS and MLLR tests on problematic relative pairs
+  identified using PREST.  The purpose of ALTERTEST is to allow the user
+  to choose the relationship to be used as the null hypothesis for the
+  tests, and this relationship is allowed to be different from that given
+  by the pedigree.  In contrast, PREST will automatically use the
+  relationship specified by the pedigree as the null hypothesis for the
+  tests.  ALTERTEST is a stand-alone program.  If one has a null
+  hypothesis in mind that is different from what is in the pedigree for
+  some specific relative pairs, one can run ALTERTEST alone.  In other
+  cases, it is helpful to run PREST first, so one can identify the
+  problematic pairs and propose some likely relationships for the
+  pairs.  The proposed likely relationships can then be tested by
+  ALTERTEST for fit to the data.
+
+  In a hypothesis test, if the null relationship (according to the
+  pedigree) is rejected, it is of interest to know what relationships
+  are compatible with the observed genotype data of the pair.  The
+  estimate of p = (p0, p1, p2), the probability of sharing zero, one
+  or two alleles IBD by the pair, can be useful for suggesting some
+  likely relationships for the pair.  For example, with genome-screen 
+  data available, consider a case that the estimate of 
+  p = (p0, p1, p2) for a putative full-sib pair is (.463, .512, .025).  
+  The true value of p is (.25, .5, .25) for a full-sib pair and is 
+  (.5, .5, 0) for a half-sib pair, so it might be reasonable to test 
+  whether half-sib relationship is compatible with the genotype data
+  of this putative full-sib pair.  Consider another case where the
+  estimate of p = (p0, p1, p2) for a putative grandparent-grandchild
+  pair is (.005, .953, .042).  The true value of p is (.5, .5, 0) for
+  a grandparent-grandchild pair and is (0, 1, 0) for a
+  parent-offspring pair.  So it might be reasonable to test whether
+  parent-offspring relationship is compatible with the genotype data
+  of this putative grandparent-grandchild pair.  
+  
+  In the current implementation of ALTERTEST, 11 possible relationship
+  types are allowed as null hypotheses for all the four tests (EIBD,
+  AIBS, IBS and MLLR). They are full-sib, half-sib,
+  grandparent-grandchild, avuncular, first-cousin, unrelated,
+  half-avuncular, half-first-cousin, half-sib+first-cousin,
+  parent-offspring and MZ twins.  These relationships are also the
+  elements of the alternative set A for the MLLR test.  ALTERTEST
+  allows more than one null hypothesis to be specified for each pair.
+  It also uses a default value of 100,000 replicates to calculate the
+  empirical p-values for the EIBD, AIBS, IBS and MLLR tests.  Moreover
+  ALTERTEST estimates p = (p0, p1, p2) for each pair.  Note that for
+  unrelated pairs, only the IBS and MLLR tests are applicable; for
+  parent-offspring pairs, only the AIBS, IBS and MLLR tests are
+  applicable; for MZ twins, only the MLLR test is applicable. 

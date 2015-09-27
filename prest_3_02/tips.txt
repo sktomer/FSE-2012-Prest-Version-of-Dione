@@ -1,0 +1,163 @@
+
+Tips
+
+1.  Input
+
+    READ "Input" DOCUMENT CAREFULLY.
+ 
+    The program will stop if any errors are detected in the format of
+    the pedigree file, the format of the marker files or the format of
+    the genotype data files.  So read the "Input" document carefully
+    and make sure the input files are in the correct format.
+
+2.  Option 1 or Option 2
+
+    Apply option 1 first, then use option 2.
+ 
+    Option 1 performs the fast EIBD, AIBS and IBS tests only.
+    Option 2 does everything that is done in option 1, then 
+    proceeds to apply the MLLR test to a subset of the relative pairs. 
+    Although the MLLR test has higher power than the EIBD, AIBS and
+    IBS tests, it requires simulation for each pair to assess
+    significance.  For each relative pair, the MLRT algorithm using
+    100,000 simulated realizations takes approximately 5 minutes on a
+    Sun Ultra-2.
+
+    If you have a large number of pedigrees, in general, use option 1
+    first.  The output file "prest_out1" contains the information on 
+    the number of the pairs for which PREST would perform the MLRT 
+    if option 2 is chosen.  If you multiply this number by 5 minutes, 
+    you would get the approximate running time of your data on a Sun
+    Ultra-2, if you choose option 2.
+
+    Note that the Number of REPlicates (NREP) in the simulation can be
+    changed in the original program "prest.c".  Reducing the number of
+    replicates speeds up the simulation, but reduces the accuracy of
+    the empirical p-value calculation.  Conversely, you can increase
+    the accuracy by increasing NREP.  The default value of NREP 
+    is 100,000.
+
+3.  EIBD, AIBS, IBS or MLLR
+
+    A general order(descending) of the tests in terms of their
+    power is: MLLR, EIBD, AIBS, IBS. 
+
+    In our simulations, the power of the MLLR, EIBD and AIBS tests
+    (if applicable) are higher than that of the IBS test in all cases
+    considered.  The power of the EIBD test is generally higher than
+    that of the AIBS test, except in the case when the null
+    relationship has p2 = 0 (the probability of sharing two alleles
+    IBD by the pair) and the true relationship has moderate value of
+    p_2, say full-sib.  The power of the MLLR test is usually
+    higher than that of the EIBD test.  However when the true
+    relationship is not contained in the alternative set for the MLLR
+    test, the power of the EIBD test and that of the MLLR test tend to
+    be very close for all the cases we have simulated.  In practice,
+    we often do not have a specific alternative relationship in mind.
+    In that case, the EIBD and AIBS tests, which do not require
+    specification of a set of alternative relationships, can be
+    useful.
+
+    Parent-offspring relationship is a special case.  If the null
+    relationship is parent-offspring and the true relationship has the
+    same or close kinship coefficient, say full-sib, the EIBD test
+    does not apply and both the AIBS and IBS tests have low power.  
+    If the null and true relationships, as described above are
+    reversed, all the EIBD, AIBS, and IBS tests have low power.  
+    To overcome the unsatisfactory power of the EIBD, AIBS, IBS tests
+    in both cases, while avoiding applying the MLLR test to every
+    pair, the estimate of p = (p0, p1, p2) is used to identify
+    possible misspecified parent-offspring pairs, which are
+    listed in the output file "prest_out3".  Note that if option 2 is
+    chosen, such pairs will then be tested by the use of the MLLR
+    test.  However if one use option 1 only, one should pay extra
+    attention to the pairs listed in the file "prest_out3".
+    
+4.  Significance Level 
+
+    For a single hypothesis test, it is conventional to use a
+    significance level of 0.05 or 0.01.  In practice, we often want to
+    check for pedigree errors in a moderate number of pedigrees with a
+    large number of relative pairs.  This creates a problem of
+    multiple comparisons, e.g. even if the null hypothesis is true in
+    all cases, some fraction of the pairs would be expected to have
+    p-values below 0.05.  To reduce the number of false positives that
+    would be expected to occur in testing a large number of pairs, a
+    lower significance level is recommended.  A level of 0.001 could
+    be used to "flag" pairs that are problematic.  However, to draw
+    conclusion that some pairs are significant pairs, one should not
+    strictly follow this 0.001 threshold.  One may want to
+    Bonferroni-correct, i.e. multiply the most significant p-value by
+    the number of hypothesis tests performed.  One may also be able to
+    combine the information across several relative pairs that all
+    point to the same relationship misspecification (see 6).
+
+5.  Estimation of Relationships
+
+    The estimation of p = (p0, p1, p2) can be used to suggest some
+    likely relationships for a pair. This is especially useful if the
+    relationship specified by the pedigree does not fit the data.
+
+    Both "PREST" and "ALTERTEST" estimates p = (p0, p1, p2), 
+    the probability of sharing zero, one or two alleles IBD.  
+    To avoid non-convergence in the EM algorithm, the Maximum number
+    of ITERations  (MITER) is 5000.  For any pair, if the no. of
+    iterations is bigger than MITER, then the output is -1.  You can
+    re-define MITER in the original program "prest.c" or "altertest.c".  
+
+    Following are the null values of p = (p0, p1, p2) for some
+    relationships and corresponding kinship coefficients.
+                              
+			            p0       p1      p2      kin.coef.
+
+        MZ twins                    0        0       1       .5
+	parent-offspring            0        1       0       .25             
+	full-sib	            0.25     0.5     0.25    .25	
+	half-sib-plus-first-cousin  0.375    0.5     0.125   .1875	
+	half-sib		    0.5      0.5     0       .125
+	grandparent-child	    0.5      0.5     0       .125
+	avuncular		    0.5      0.5     0       .125
+	first-cousin		    0.75     0.25    0       .0625
+	half-avuncular		    0.75     0.25    0       .0625
+	half-first-cousin	    0.875    0.125   0       .03125
+	unrelated		    1        0       0       0
+
+    (A pair is called half-sib+first-cousin, if they have the same
+     mother, different fathers and two fathers are full-sib, or
+     the same father, different mothers who are sisters.)
+
+6.  Draw Conclusion of Pedigree Error
+   
+    First, take into account the amount of data, or the number of
+    markers used in the tests.  Simulation studies show that our
+    method has satisfactory power for detecting pedigree errors, 
+    if genome-screen data are available, or the number of typed
+    markers is large.  However, the tests are not reliable if only a
+    few markers are typed.
+
+    Second, consider the pattern of results among multiple pairs 
+    from the same pedigree.  
+
+    When a particular pair is observed to have significant deviation
+    from its null relationship, the pattern among other relatives can
+    often confirm and point to a likely explanation for the finding. 
+    For instance, consider a family with a sibship of size 3 
+    (ID 1, ID 2 and ID 3) with parents untyped.  If ID 1 were half-sib
+    to the other two, then you would expect to detect an error in two
+    different pairs (ID 1, ID 2) and (ID 1, ID 3), and not expect to see
+    a relationship misfit in pair (ID 2, ID 3).  When an apparent
+    error is detected, by considering the pattern of results among
+    multiple pairs from the same pedigree, one many be able to
+    distinguish a true relationship error from chance rejection of the null.  
+
+    You can also use ALTERTEST to check whether some particular
+    relationships are compatible with the data.  This will provide
+    more evidence about the likely relationship for the pair.
+
+7.  Alleles must have the same meaning across the families.
+
+    Note that if allele numbers in the genotype data file refer to
+    different alleles in different families, then the results of PREST
+    and ALTERTEST will not be meaningful.  
+
+8.  

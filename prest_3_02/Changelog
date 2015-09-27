@@ -1,0 +1,123 @@
+
+PREST (Pedigree Relationship Statistical Test) Changelog
+
+
+Version 1.0 (7/22/00)
+=======================
+- Initial Release
+
+
+Version 1.01 (7/25/00)
+=======================
+- Changed program behavior so that it does not halt after
+  encountering a Mendelian error.  Instead, just warn user of the
+  error.
+
+
+Version 2.0 (8/10/00)
+=======================
+- Extend the the set of alternative relationships for the MLRT.
+  Version 1 considers full-sib, half-sib, grandparent-grandchild,
+  avuncular and first-cousin (excluding the null relationship).
+  Version 2 considers all the above relationships and three more
+  relationships. They are half-avuncular, half-cousin and 
+  half-sib+first-cousin.  (A pair is called half-sib+first-cousin
+  if they have the same mother and different fathers and the two fathers
+  are full-sib, or the same father and different mothers who are sisters.)
+
+- Provides a new program, ALTERTEST, which performs the EIBD, AIBS, IBS
+  and MLLR tests on relative pairs with a user-specified null hypothesis
+  that may be different from what the pedigree says. 
+
+  
+Version 2.01 (9/05/00)
+=======================
+- Changed one of the input files "altertest_input" for ALTERTEST 
+  so that the input file does not require the information of the 
+  putative relationship type according to the pedigree of the pairs.
+
+- Changed ALTERTEST behavior so that it also estimates p = (p0, p1, p2),
+  the probabilities of sharing zero, one or two alleles IBD, for each 
+  of the pairs.
+
+
+Version 2.02 (10/30/00)
+=======================
+- Some changes in the output file "prest_out1" for PREST.
+
+- Some changes in the documentation.
+
+
+Version 2.03 (11/28/00)
+=======================
+- Increased the default maximum line length (set in compiler variable
+  MAXSTR) of the input files to 5000.  The program now warns if an input
+  line is too long.
+
+- The PREST distribution now includes an R program written by
+  Daniel E. Weeks that draws out the relationship triangles using
+  the PREST output file "prest_out2".  That is, it will plot the sharing
+  probabilities on the 'relationship triangle' as described in
+  Elizabeth Thompson's book "Pedigree Analysis in Human Genetics".
+  This program runs fine in Splus as well as R.  We added a minor
+  modification so that it works with "prest_out2" files created using
+  either option of PREST.
+
+
+Version 3.0 (01/10/01)
+=======================
+- Add 2 additional relationships to the alternative set A for the 
+  MLLR test.  They are parent-offspring and MZ twin relative pairs.
+
+- Add a new parameter 'errorrate' (the approximate genotyping error 
+  rate, the default value is 0.01).  Incorporate genotyping error in the
+  likelihood calculation for the parent-offspring and MZ twin pairs. 
+
+- Change PREST behavior so that, among typed individuals of each pedigree,
+  it also identifies relative pairs that are half-avuncular, 
+  half-first-cousin, half-sib-plus-first-cousin or parent-offspring
+  relationship specified by the pedigree.  PREST then performs the 
+  corresponding hypothesis tests.  
+
+- Add new initial screening criteria for the PREST:
+	1. for parent-offspring pairs, apply the MLLR test if the 
+	   estimate of p1 < 0.9.
+	2. for non-parent-offspring pairs, in addition to the criteria 
+           used in Version 1 and 2, apply the MLLR test if the 
+           estimate of p1 > 0.75.
+
+- Add a new output file "prest_out3" for PREST. This file
+  contains the information for the pairs that the pedigree indicates 
+  not parent-offspring relationship but have the estimate of p1 > 0.75,
+  and it also contains the information for the pairs that the pedigree
+  indicates parent-offspring relationship but have the estimate of 
+  p1 < 0.9.
+ 
+- Change ALTERTEST behavior so that it also allows the 
+  parent-offspring and MZ twin relationships as null hypotheses 
+  for all the tests.
+
+
+Version 3.01 (04/30/03)
+=======================
+- Correct the kinship coefficient for half-first-cousins to be .03125 
+  in prest.c, altertest.c and tips.txt
+
+- Add the feature of checking allele frequency to be >0 and <=1.
+  (Thanks to David Poznik who identified the problem in the EM algorithm,
+   due to ultra-low frequency of some alleles).
+  
+- In the EM algorithm for estimating p0, p1, p2, modifying the conditional 
+  probabilities, P(genotype|IBD=i), for parent-offspring pairs, in a similar
+  fashion as for the likelihood calculation, so that the estimates are robust
+  to the presence of genotyping error.
+
+
+Version 3.02 (02/15/05)
+=======================
+
+- There were a couple lines in the .c files that had illegal line-breaks,
+  which either gives warning of "multi-line string literals are deprecated"
+  during compiling or failure to compile. 
+  (Thanks to David Poznik who identified the problem)
+

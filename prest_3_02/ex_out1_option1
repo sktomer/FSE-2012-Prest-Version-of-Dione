@@ -1,0 +1,126 @@
+# Number of pedigrees: 
+    2
+
+# Total number of individuals: 
+    22
+
+# Number of chromosomes: 
+    1
+
+# Total number of markers: 
+    22
+
+# Number of markers on each chromosome
+
+    ex_chr01.idx:    22 
+
+# Number of genotyped pairs found in each of the
+# relationship categories analyzed by PREST: 
+# (Note that unrelated pairs are checked within each pedigree.)
+
+    Total:  49
+
+         10 full-sib pairs
+          0 half-sib pairs 
+          3 grandparent-grandchild pairs
+         12 avuncular pairs
+          2 first-cousin pairs
+          8 unrelated pairs
+          0 half-avuncular pairs
+          0 half-first-cousin pairs
+          0 half-sib-plus-first-cousin pairs
+         14 parent-offspring pairs
+
+# Summary of genotyped pairs found in each pedigree
+
+    pedid size f.sib h.sib g.p.c avun. f.cous. unrel. h.avun h.f.cous. h.sib+f.cous. p.o.   Total
+      227    9     6    0    3    6    0    4    0    0    0    9       28
+      301   13     4    0    0    6    2    4    0    0    0    5       21
+
+# Number of pairs that have p-value of either EIBD or AIBS less than 0.2
+# (for unrelated, p-value of IBS less than 0.2).
+# This is the number of pairs for which PREST would perform the MLRT.
+# (The MLRT will actually be performed only if option 2 is chosen.)
+# For each pair, performance of the MLRT, including 100,000
+# simulated realizations takes approximately 5 minutes on 
+# a Sun Ultra II with 360-MHz processor.
+
+    10
+
+# Assuming that there are not many misclassified relative pairs in the
+# data set and assuming that all the pairs are typed on roughly the
+# same markers (because which markers are typed affects the null means
+# of the AIBS and IBS statistics and affects the null variances of the
+# EIBD, AIBS and IBS statistics), then the sample averaged observed
+# statistics for each relationship type should not be significantly
+# different from what is expected.  If they are significantly
+# different, if may indicate that the allele frequencies are not
+# accurately estimated, or that the assumptions of population
+# homogeneity and Hardy-Weinberg equilibrium are not appropriate.
+# It could also indicate a problem with the way the data are coded 
+# (see item #7 in 'Tips' file).  The following output contains 
+# the information of sample summary of the statistics
+
+# obs      = sample averaged observed statistic
+# mu(std)  = sample averaged null mean (sample std. dev. of null mean)
+#            (Note that the null mean of EIBD depends only on
+             the null relationship, not on the data, so for EIBD 
+#            we give the null mean in place of the sample averaged null mean
+# std(std) = sample averaged standard deviation
+#            (sample std. dev. of null standard deviation)
+# no.mark  = sample averaged number of typed markers for a pair
+#            (sample std. dev.)
+
+              no.pairs no.mark(std)
+    full-sib        10    17.1(   1.1)
+    half-sib         0      NA(    NA)
+    grandp-c         3    16.0(   1.7)
+   avuncular        12    16.7(   1.4)
+    f-cousin         2    19.0(   0.0)
+   unrelated         8    17.2(   0.5)
+ h-avuncular         0      NA(    NA)
+  h-f-cousin         0      NA(    NA)
+h-sib+f-cous         0      NA(    NA)
+pa-offspring        14    17.4(   1.4)
+
+# Sample summary of EIBD 
+
+                   obs     mu    std(     std)
+       full-sib 0.9780 1.0000 0.1984(0.006952)
+       half-sib     NA     NA     NA(      NA)
+       grandp-c 0.5160 0.5000 0.1019(0.004238)
+      avuncular 0.5231 0.5000 0.0837(0.002658)
+       f-cousin 0.2699 0.2500 0.0542(     nan)
+      unrelated     NA     NA     NA(      NA)
+    h-avuncular     NA     NA     NA(      NA)
+     h-f-cousin     NA     NA     NA(      NA)
+ h-sib+f-cousin     NA     NA     NA(      NA)
+   pa-offspring     NA     NA     NA(      NA)
+
+# Sample summary of AIBS 
+
+                   obs     mu(     std)    std(     std)
+       full-sib 0.7687 0.7751(0.001291) 0.1534(0.004792)
+       half-sib     NA     NA(      NA)     NA(      NA)
+       grandp-c 0.4333 0.3790(0.001036) 0.0930(0.003764)
+      avuncular 0.4117 0.3797(0.001007) 0.0783(0.002459)
+       f-cousin 0.2056 0.1938(0.000000) 0.0476(0.000000)
+      unrelated     NA     NA(      NA)     NA(      NA)
+    h-avuncular     NA     NA(      NA)     NA(      NA)
+     h-f-cousin     NA     NA(      NA)     NA(      NA)
+ h-sib+f-cousin     NA     NA(      NA)     NA(      NA)
+   pa-offspring 0.7398 0.7415(0.001984) 0.0647(0.002904)
+
+# Sample summary of IBS 
+
+                   obs     mu(     std)    std(     std)
+       full-sib 1.2450 1.2997(0.002314) 0.2375(0.007404)
+       half-sib     NA     NA(      NA)     NA(      NA)
+       grandp-c 0.9762 0.9826(0.006137) 0.2036(0.008798)
+      avuncular 1.0044 0.9789(0.005320) 0.1727(0.006094)
+       f-cousin 1.0000 0.8433(0.000000) 0.1634(0.000000)
+      unrelated 0.8448 0.7120(0.006001) 0.1477(0.002149)
+    h-avuncular     NA     NA(      NA)     NA(      NA)
+     h-f-cousin     NA     NA(      NA)     NA(      NA)
+ h-sib+f-cousin     NA     NA(      NA)     NA(      NA)
+   pa-offspring 1.2165 1.2404(0.003288) 0.1014(0.004774)

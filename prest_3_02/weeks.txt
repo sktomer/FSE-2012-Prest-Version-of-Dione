@@ -1,0 +1,19 @@
+
+prest.r
+=======
+
+This is an R program written by Daniel E. Weeks
+(dweeks@watson.hgen.pitt.edu) that draws out the 
+relationship triangles using the PREST output file "prest_out2".  
+That is, it will plot the sharing probabilities on the 
+'relationship triangle' as described in Elizabeth Thompson's 
+book "Pedigree Analysis in Human Genetics".
+
+This program runs fine in Splus as well as in R.  
+
+We added a minor modification so that it works with the output file 
+created using either option of PREST.
+
+The program is included in the gzipped tar archive and it can
+be also download individually.  The usage is described in the 
+program and it is also included in the README file.
