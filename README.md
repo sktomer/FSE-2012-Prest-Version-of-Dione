@@ -1,5 +1,4 @@
 # FSE-2012-Prest-Version-of-Dione-
-<<<<<<< HEAD
 
 This repository contains information related to the tool Prest: version 3.02. The tool is an open source project. This tool is the prior version of the tool 'Dione' which was presented in [the paper](http://dl.acm.org/citation.cfm?doid=2393596.2393643) at FSE 2012.
 
@@ -16,6 +15,3 @@ In this repository, for the Prest project you will find:
 * :Some sample input files are also available to test the tool along with the expected output files.
 
 This repository was constructed by [Apoorv Joshi](https://github.com/apoorv-vijay-joshi) under the supervision of [Emerson Murphy-Hill](https://github.com/CaptainEmerson). Thanks to Bora Caglayan, Ayse Tosun Misirli, Gul Calikli, Ayse Bener, Turgay Aytac, Burak Turhan for their help in establishing this repository.
-=======
-Prest an Earlier version of Dione
->>>>>>> origin/master
