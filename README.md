@@ -1,4 +1,4 @@
-# Prest
+# PREST
 
 This repository contains information related to the tool Prest: version 3.02. The tool is an open source project. This tool is the prior version of the tool 'Dione' which was presented in [the paper](http://dl.acm.org/citation.cfm?doid=2393596.2393619) at FSE 2012.
 
