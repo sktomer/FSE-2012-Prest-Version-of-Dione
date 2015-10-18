@@ -14,4 +14,7 @@ In this repository, for the Prest project you will find:
 * README.md:    The README file published along side the project by the authors which explains the details of the project and the steps for execution of the tool.
 * Some sample input files are also available to test the tool along with the expected output files.
 
+Internal link for the executable
+* [Executable](https://github.com/SoftwareEngineeringToolDemos/FSE-2012-Prest-Version-of-Dione/blob/master/prest_3_02/prest.solaris)
+
 This repository was constructed by [Apoorv Joshi](https://github.com/apoorv-vijay-joshi) under the supervision of [Emerson Murphy-Hill](https://github.com/CaptainEmerson). Thanks to Lei Sun, Kenneth Wilder,  Mary Para McPeek for their help in establishing this repository.
