@@ -2,7 +2,7 @@
 
 This repository contains information related to the tool Prest: version 3.02. The tool is an open source project. This tool is the prior version of the tool 'Dione' which was presented in the [paper](http://dl.acm.org/citation.cfm?doid=2393596.2393619) at FSE 2012.
 
-This repository is not the original repository for this tool. Following are some of the links to the original project:
+This repository <i>is not</i> the original repository for this tool. Following are some of the links to the original project:
 
 * The [Official Project Page](http://fisher.utstat.toronto.edu/sun/Software/Prest/prest3.02/download.html), including the tar file for the project
 
