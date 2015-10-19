@@ -8,8 +8,8 @@ This repository <i>is not</i> the original repository for this tool. Following a
 
 In this repository, for the Prest project you will find:
 
-* prest.c:      Source code (available)
-* altertest.c:  Extension of the functionality of the Prest tool (available).
+* :white_check_mark: prest.c:      Source code (available)
+* :white_check_mark: altertest.c:  Extension of the functionality of the Prest tool (available).
 * prest:        An executable file after compilation of the source code.
 * README.md:    The README file published along side the project by the authors which explains the details of the project and the steps for execution of the tool.
 * Some sample input files are also available to test the tool along with the expected output files.
