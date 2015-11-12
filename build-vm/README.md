@@ -23,8 +23,8 @@ Please wait until the vagrant window returns to a prompt before rebooting.
 The Virtual Machine also might reboot while it is being renamed.  
 
 Note: The login credentials are:
-Username: vagrant
-Password: vagrant
+* Username: vagrant
+* Password: vagrant
 
 Please do not interact with the VM until all of the activity in the command window has completed.  
 
