@@ -8,9 +8,7 @@ This VM will contain the "PREST" Tool.
 A vagrant tutorial can be found [here] (https://docs.vagrantup.com/v2/getting-started/index.html)  
 Install [vagrant] (https://www.vagrantup.com/downloads.html) and [virtualbox] (https://www.virtualbox.org/wiki/Downloads) (preferrably latest versions) on host machine.
 The binaries and documentation for Oracle Virtual Box can be found [here] (https://www.virtualbox.org/) 
-Deploys Base Vagrant Box from the link for [Ubuntu 14.04 Desktop] (https://vagrantcloud.com/box-cutter/boxes/ubuntu1404-desktop)
-
-The PREST tool web site is [here] (http://fisher.utstat.toronto.edu/sun/Software/Prest/prest3.02/download.html)
+Deploys Base Vagrant Box from the link for [Ubuntu 14.04 Desktop] (https://vagrantcloud.com/box-cutter/boxes/ubuntu1404-desktop).
 
 Follow this process to create the tool VM from scratch:  
 * Download all files/folders under the "build-vm" folder.  
