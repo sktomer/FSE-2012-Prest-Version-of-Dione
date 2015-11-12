@@ -14,13 +14,13 @@ Deploys Base Vagrant Box from the link for [Ubuntu 14.04 Desktop] (https://vagra
 The PREST tool web site is [here] (http://fisher.utstat.toronto.edu/sun/Software/Prest/prest3.02/download.html)
 
 Follow this process to create the tool VM from scratch:  
-1. Download all files/folders under the "build-vm" folder.  
-2. Install Vagrant, if not already installed.  
-3. Install Oracle Virtual Box, if not already installed.  
-4. Open a command window.  
-5. Navigate to the location where the files were downloaded.  
-6. Type "vagrant up".  
-7. After built, VM GUI will be displayed.
+* Download all files/folders under the "build-vm" folder.  
+* Install Vagrant, if not already installed.  
+* Install Oracle Virtual Box, if not already installed.  
+* Open a command window.  
+* Navigate to the location where the files were downloaded.  
+* Type "vagrant up".  
+* After built, VM GUI will be displayed.
 There might be a prompt to restart. 
 Please wait until the vagrant window returns to a prompt before rebooting.
 The Virtual Machine also might reboot while it is being renamed.  
