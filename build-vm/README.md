@@ -7,7 +7,6 @@ This VM will contain the "PREST" Tool.
 
 A vagrant tutorial can be found [here] (https://docs.vagrantup.com/v2/getting-started/index.html)  
 Install [vagrant] (https://www.vagrantup.com/downloads.html) and [virtualbox] (https://www.virtualbox.org/wiki/Downloads) (preferrably latest versions) on host machine.
-The binaries for vagrant can be found [here] (https://www.vagrantup.com/downloads.html)  
 The binaries and documentation for Oracle Virtual Box can be found [here] (https://www.virtualbox.org/) 
 Deploys Base Vagrant Box from the link for [Ubuntu 14.04 Desktop] (https://vagrantcloud.com/box-cutter/boxes/ubuntu1404-desktop)
 
