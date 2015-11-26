@@ -73,6 +73,20 @@ Vagrant.configure(2) do |config|
     sudo apt-get install -y apache2
     sudo apt-get install make
     sudo apt-get install gcc
+    sudo apt-get install subversion
+    cd
+    cd Desktop/
+    sudo svn checkout https://github.com/SoftwareEngineeringToolDemos/FSE-2012-Prest-Version-of-Dione 
+    sudo mv ~/Desktop/FSE-2012-Prest-Version-of-Dione/trunk/prest_3_02/ ~/Desktop/
+    sudo mv ~/Desktop/FSE-2012-Prest-Version-of-Dione/trunk/README.md ~/Desktop/
+    sudo mv ~/Desktop/FSE-2012-Prest-Version-of-Dione/trunk/build-vm/Installation.txt ~/Desktop/
+    sudo mv ~/Desktop/FSE-2012-Prest-Version-of-Dione/trunk/build-vm/License.txt ~/Desktop/
+    sudo mv ~/Desktop/FSE-2012-Prest-Version-of-Dione/trunk/build-vm/Prest_Installation_Youtube.html ~/Desktop/
+    sudo mv ~/Desktop/FSE-2012-Prest-Version-of-Dione/trunk/build-vm/Prest_Presentation_Youtube.html ~/Desktop/
+    sudo rm -rf ~/Desktop/FSE-2012-Prest-Version-of-Dione
+    cd prest_3_02/
+    make
+    make altertest
+    cd ..
   SHELL
-  # config.vm.provision :shell, path: "installation.sh"
 end
