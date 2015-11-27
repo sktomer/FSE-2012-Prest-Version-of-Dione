@@ -7,11 +7,10 @@ This VM will contain the "PREST" Tool.
 
 #### Pre-requisites: 
 1. Install [vagrant] (https://www.vagrantup.com/downloads.html) and [virtualbox] (https://www.virtualbox.org/wiki/Downloads) (preferrably latest versions) on host machine.  
-2. The binaries for vagrant can be found [here] (https://www.vagrantup.com/downloads.html).  
-3. The binaries and documentation for Oracle Virtual Box can be found [here] (https://www.virtualbox.org/).  
-4. A vagrant tutorial can be found [here] (https://docs.vagrantup.com/v2/getting-started/index.html).
-
-The PREST tool web site is [here] (http://fisher.utstat.toronto.edu/sun/Software/Prest/prest3.02/download.html)
+  - The binaries for vagrant can be found [here] (https://www.vagrantup.com/downloads.html).  
+  - The binaries and documentation for Oracle Virtual Box can be found [here] (https://www.virtualbox.org/).  
+  - A vagrant tutorial can be found [here] (https://docs.vagrantup.com/v2/getting-started/index.html).
+  - The PREST tool web site is [here] (http://fisher.utstat.toronto.edu/sun/Software/Prest/prest3.02/download.html)
 
 #### Steps:
 Follow these steps to create the tool VM from scratch:  
